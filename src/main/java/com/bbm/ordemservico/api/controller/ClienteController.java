@@ -70,6 +70,10 @@ public class ClienteController {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<String> deleteClient(@PathVariable("id") Long id){
 		
+		if (!clienteRepository.existsById(id)) {
+			return new ResponseEntity<String>("Cliente não encontrado!", HttpStatus.NOT_FOUND);
+		}
+		
 		clienteRepository.deleteById(id);
 		
 		return new ResponseEntity<String>("Cliente Deletado com Sucesso", HttpStatus.OK);
