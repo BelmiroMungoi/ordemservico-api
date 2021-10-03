@@ -3,6 +3,8 @@ package com.bbm.ordemservico.api.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +28,7 @@ public class ClienteController {
 	private ClienteRepository clienteRepository;
 
 	@PostMapping("/")
-	public ResponseEntity<Cliente> saveClient(@RequestBody Cliente cliente) {
+	public ResponseEntity<Cliente> saveClient(@Valid @RequestBody Cliente cliente) {
 
 		Cliente client = clienteRepository.save(cliente);
 
@@ -56,7 +58,7 @@ public class ClienteController {
 	}
 
 	@PutMapping("/")
-	public ResponseEntity<?> updateClient(@RequestBody Cliente cliente) {
+	public ResponseEntity<?> updateClient(@Valid @RequestBody Cliente cliente) {
 
 		if (cliente.getId() == null) {
 			return new ResponseEntity<String>("Cliente não encontrado", HttpStatus.NOT_FOUND);
