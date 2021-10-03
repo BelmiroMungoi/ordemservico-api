@@ -14,6 +14,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 @Entity
 public class OrdemServico implements Serializable {
 
@@ -39,12 +42,15 @@ public class OrdemServico implements Serializable {
 	private BigDecimal preco;
 
 	@Column(nullable = false)
+	@JsonProperty(access = Access.READ_ONLY)
 	private LocalDateTime dataAbertura;
-	
+
+	@JsonProperty(access = Access.READ_ONLY)
 	private LocalDateTime dataFinalizacao;
 
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
+	@JsonProperty(access = Access.READ_ONLY)
 	private StatusOrdemServico status;
 
 	@ManyToOne
@@ -120,6 +126,14 @@ public class OrdemServico implements Serializable {
 
 	public void setDataFinalizacao(LocalDateTime dataFinalizacao) {
 		this.dataFinalizacao = dataFinalizacao;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 
 	@Override
