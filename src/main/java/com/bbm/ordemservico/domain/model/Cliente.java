@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Cliente {
@@ -18,6 +19,7 @@ public class Cliente {
 	private Long id;
 	
 	@NotBlank
+	@Size(min = 3, max = 60)
 	@Column(nullable = false)	
 	private String nome;
 
@@ -27,6 +29,7 @@ public class Cliente {
 	private String email;
 
 	@NotBlank
+	@Size(max = 10)
 	@Column(nullable = false)
 	private String telefone;
 
