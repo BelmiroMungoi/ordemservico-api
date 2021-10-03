@@ -1,4 +1,4 @@
-package com.bbm.ordemservico.domain.model;
+package com.bbm.ordemservico.domain.model.enums;
 
 public enum StatusOrdemServico {
 
