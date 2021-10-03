@@ -12,6 +12,12 @@ public class ErrorObject {
 
 	public static class Campo {
 
+		public Campo(String nome, String mensagem) {
+			super();
+			this.nome = nome;
+			this.mensagem = mensagem;
+		}
+
 		private String nome;
 		private String mensagem;
 
