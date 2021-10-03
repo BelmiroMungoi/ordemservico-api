@@ -8,4 +8,5 @@ import com.bbm.ordemservico.domain.model.Cliente;
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente, Long>{
 
+	Cliente findByEmail(String email);
 }
