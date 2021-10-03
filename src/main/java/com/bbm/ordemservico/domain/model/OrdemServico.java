@@ -13,6 +13,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
@@ -26,18 +28,23 @@ public class OrdemServico implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@NotBlank
 	@Column(nullable = false)
 	private String descricao;
 
+	@NotBlank
 	@Column(nullable = false)
 	private String equipamento;
 
+	@NotBlank
 	@Column(nullable = false)
 	private String defeito;
 
+	@NotBlank
 	@Column(nullable = false)
 	private String solucao;
 
+	@NotNull
 	@Column(nullable = false)
 	private BigDecimal preco;
 
@@ -53,6 +60,7 @@ public class OrdemServico implements Serializable {
 	@JsonProperty(access = Access.READ_ONLY)
 	private StatusOrdemServico status;
 
+	@NotNull
 	@ManyToOne
 	private Cliente cliente;
 

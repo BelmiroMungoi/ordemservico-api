@@ -1,5 +1,7 @@
 package com.bbm.ordemservico.api.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +21,7 @@ public class OrdemServicoController {
 	private GestaoOrdemServicoService gestaoOrdemServico;
 	
 	@PostMapping("/")
-	public ResponseEntity<OrdemServico> create(@RequestBody OrdemServico ordemServico) {
+	public ResponseEntity<OrdemServico> create(@Valid @RequestBody OrdemServico ordemServico) {
 		
 		OrdemServico order = gestaoOrdemServico.createOrder(ordemServico);
 		
