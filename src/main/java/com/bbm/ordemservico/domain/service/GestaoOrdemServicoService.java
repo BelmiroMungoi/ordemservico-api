@@ -5,10 +5,10 @@ import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bbm.ordemservico.domain.exceptionhandler.NegocioException;
+import com.bbm.ordemservico.domain.exception.NegocioException;
 import com.bbm.ordemservico.domain.model.Cliente;
 import com.bbm.ordemservico.domain.model.OrdemServico;
-import com.bbm.ordemservico.domain.model.StatusOrdemServico;
+import com.bbm.ordemservico.domain.model.enums.StatusOrdemServico;
 import com.bbm.ordemservico.domain.repository.ClienteRepository;
 import com.bbm.ordemservico.domain.repository.OrdemServicoRepository;
 

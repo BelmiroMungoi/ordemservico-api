@@ -3,7 +3,7 @@ package com.bbm.ordemservico.domain.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bbm.ordemservico.domain.exceptionhandler.NegocioException;
+import com.bbm.ordemservico.domain.exception.NegocioException;
 import com.bbm.ordemservico.domain.model.Cliente;
 import com.bbm.ordemservico.domain.repository.ClienteRepository;
 
