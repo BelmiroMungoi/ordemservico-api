@@ -13,11 +13,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import com.bbm.ordemservico.api.exception.ErrorObject.Campo;
+import com.bbm.ordemservico.domain.exceptionhandler.NegocioException;
 
 @RestControllerAdvice
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler{
@@ -48,5 +50,18 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler{
 		error.setCampos(campos);
 		
 		return super.handleExceptionInternal(ex, error, headers, status, request);
+	}
+	
+	@ExceptionHandler(NegocioException.class)
+	public ResponseEntity<Object> negocioExceptionHandler(NegocioException ex, WebRequest request) {
+		
+		HttpStatus status = HttpStatus.BAD_REQUEST;
+		
+		ErrorObject errorObject = new ErrorObject();
+		errorObject.setStatus(status.value() + " ==> " + status.getReasonPhrase());
+		errorObject.setTitle(ex.getMessage());
+		errorObject.setTime(LocalDateTime.now());
+		
+		return handleExceptionInternal(ex, errorObject, new HttpHeaders(), status, request);
 	}
 }

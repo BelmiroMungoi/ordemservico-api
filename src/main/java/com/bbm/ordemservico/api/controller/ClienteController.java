@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bbm.ordemservico.domain.model.Cliente;
 import com.bbm.ordemservico.domain.repository.ClienteRepository;
+import com.bbm.ordemservico.domain.service.ClienteService;
 
 @RestController
 @RequestMapping("/cliente")
@@ -26,11 +27,14 @@ public class ClienteController {
 
 	@Autowired
 	private ClienteRepository clienteRepository;
+	
+	@Autowired
+	private ClienteService clienteService;
 
 	@PostMapping("/")
 	public ResponseEntity<Cliente> saveClient(@Valid @RequestBody Cliente cliente) {
 
-		Cliente client = clienteRepository.save(cliente);
+		Cliente client = clienteService.saveClient(cliente);
 
 		return new ResponseEntity<Cliente>(client, HttpStatus.CREATED);
 	}
@@ -64,7 +68,7 @@ public class ClienteController {
 			return new ResponseEntity<String>("Cliente não encontrado", HttpStatus.NOT_FOUND);
 		}
 
-		Cliente client = clienteRepository.saveAndFlush(cliente);
+		Cliente client = clienteService.saveClient(cliente);
 
 		return new ResponseEntity<Cliente>(client, HttpStatus.OK);
 	}
@@ -76,7 +80,7 @@ public class ClienteController {
 			return new ResponseEntity<String>("Cliente não encontrado!", HttpStatus.NOT_FOUND);
 		}
 		
-		clienteRepository.deleteById(id);
+		clienteService.deleteClient(id);
 		
 		return new ResponseEntity<String>("Cliente Deletado com Sucesso", HttpStatus.OK);
 	}
