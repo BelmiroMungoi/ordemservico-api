@@ -13,16 +13,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.groups.ConvertGroup;
-import javax.validation.groups.Default;
 
-import com.bbm.ordemservico.domain.ValidationGroups;
 import com.bbm.ordemservico.domain.model.enums.StatusOrdemServico;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 @Entity
 public class OrdemServico implements Serializable {
@@ -37,37 +30,27 @@ public class OrdemServico implements Serializable {
 	@Column(nullable = false)
 	private String descricao;
 
-	@NotBlank
 	@Column(nullable = false)
 	private String equipamento;
 
-	@NotBlank
 	@Column(nullable = false)
 	private String defeito;
 
-	@NotBlank
 	@Column(nullable = false)
 	private String solucao;
 
-	@NotNull
 	@Column(nullable = false)
 	private BigDecimal preco;
 
 	@Column(nullable = false)
-	@JsonProperty(access = Access.READ_ONLY)
 	private OffsetDateTime dataAbertura;
 
-	@JsonProperty(access = Access.READ_ONLY)
 	private OffsetDateTime dataFinalizacao;
 
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
-	@JsonProperty(access = Access.READ_ONLY)
 	private StatusOrdemServico status;
 
-	@Valid
-	@ConvertGroup(from = Default.class, to = ValidationGroups.ClienteId.class)
-	@NotNull
 	@ManyToOne
 	private Cliente cliente;
 

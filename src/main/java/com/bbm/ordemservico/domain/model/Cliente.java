@@ -9,16 +9,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import com.bbm.ordemservico.domain.ValidationGroups;
 
 @Entity
 public class Cliente {
 
 	@Id
-	@NotNull(groups = ValidationGroups.ClienteId.class)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
