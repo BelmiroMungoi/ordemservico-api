@@ -1,6 +1,6 @@
 package com.bbm.ordemservico.api.exceptionhandler;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 public class ErrorObject {
 
 	private String status;
-	private LocalDateTime time;
+	private OffsetDateTime time;
 	private String title;
 	private List<Campo> campos;
 
@@ -51,11 +51,11 @@ public class ErrorObject {
 		this.status = status;
 	}
 
-	public LocalDateTime getTime() {
+	public OffsetDateTime getTime() {
 		return time;
 	}
 
-	public void setTime(LocalDateTime time) {
+	public void setTime(OffsetDateTime time) {
 		this.time = time;
 	}
 

@@ -1,6 +1,6 @@
 package com.bbm.ordemservico.api.exceptionhandler;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +46,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler{
 		ErrorObject error = new ErrorObject();
 		error.setStatus(status.value() + " ==> " + status.getReasonPhrase());
 		error.setTitle("Um ou mais campos estão inválidos. Faca o devido preenchimento e tente novamente");
-		error.setTime(LocalDateTime.now());
+		error.setTime(OffsetDateTime.now());
 		error.setCampos(campos);
 		
 		return super.handleExceptionInternal(ex, error, headers, status, request);
@@ -60,7 +60,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler{
 		ErrorObject errorObject = new ErrorObject();
 		errorObject.setStatus(status.value() + " ==> " + status.getReasonPhrase());
 		errorObject.setTitle(ex.getMessage());
-		errorObject.setTime(LocalDateTime.now());
+		errorObject.setTime(OffsetDateTime.now());
 		
 		return handleExceptionInternal(ex, errorObject, new HttpHeaders(), status, request);
 	}
