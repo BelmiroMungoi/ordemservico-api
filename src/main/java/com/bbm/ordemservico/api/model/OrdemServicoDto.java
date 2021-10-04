@@ -8,7 +8,6 @@ import com.bbm.ordemservico.domain.model.enums.StatusOrdemServico;
 public class OrdemServicoDto {
 
 	private Long id;
-	private String nomeCLiente;
 	private String descricao;
 	private String defeito;
 	private String equipamento;
@@ -17,6 +16,7 @@ public class OrdemServicoDto {
 	private StatusOrdemServico status;
 	private OffsetDateTime dataAbertura;
 	private OffsetDateTime dataFinalizaca;
+	private ClienteResumDto cliente;
 
 	public Long getId() {
 		return id;
@@ -24,14 +24,6 @@ public class OrdemServicoDto {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public String getNomeCLiente() {
-		return nomeCLiente;
-	}
-
-	public void setNomeCLiente(String nomeCLiente) {
-		this.nomeCLiente = nomeCLiente;
 	}
 
 	public String getDescricao() {
@@ -96,6 +88,14 @@ public class OrdemServicoDto {
 
 	public void setDataFinalizaca(OffsetDateTime dataFinalizaca) {
 		this.dataFinalizaca = dataFinalizaca;
+	}
+
+	public ClienteResumDto getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(ClienteResumDto cliente) {
+		this.cliente = cliente;
 	}
 
 }
