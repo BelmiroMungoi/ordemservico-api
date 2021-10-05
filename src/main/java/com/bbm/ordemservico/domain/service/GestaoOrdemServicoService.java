@@ -5,6 +5,7 @@ import java.time.OffsetDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bbm.ordemservico.domain.exception.EntityNotFoundException;
 import com.bbm.ordemservico.domain.exception.NegocioException;
 import com.bbm.ordemservico.domain.model.Cliente;
 import com.bbm.ordemservico.domain.model.Comentario;
@@ -41,7 +42,7 @@ public class GestaoOrdemServicoService {
 	public Comentario addComentario(Long id, String descricao) {
 		
 		OrdemServico ordemServico = ordemServicoRepository.findById(id)
-				.orElseThrow(()  -> new NegocioException("Ordem de Servico não encontrada"));
+				.orElseThrow(()  -> new EntityNotFoundException("Ordem de Servico não encontrada"));
 	
 		Comentario comentario = new Comentario();
 		comentario.setDataEnvio(OffsetDateTime.now());
