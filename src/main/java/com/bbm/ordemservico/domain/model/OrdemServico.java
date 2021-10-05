@@ -3,6 +3,7 @@ package com.bbm.ordemservico.domain.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -13,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 
 import com.bbm.ordemservico.domain.model.enums.StatusOrdemServico;
@@ -53,6 +55,9 @@ public class OrdemServico implements Serializable {
 
 	@ManyToOne
 	private Cliente cliente;
+
+	@OneToMany(mappedBy = "ordemServico")
+	private List<Comentario> comentarios;
 
 	public Long getId() {
 		return id;
@@ -132,6 +137,14 @@ public class OrdemServico implements Serializable {
 
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
+	}
+
+	public List<Comentario> getComentarios() {
+		return comentarios;
+	}
+
+	public void setComentarios(List<Comentario> comentarios) {
+		this.comentarios = comentarios;
 	}
 
 	@Override
