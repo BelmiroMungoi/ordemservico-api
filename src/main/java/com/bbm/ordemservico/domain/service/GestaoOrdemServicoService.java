@@ -7,9 +7,11 @@ import org.springframework.stereotype.Service;
 
 import com.bbm.ordemservico.domain.exception.NegocioException;
 import com.bbm.ordemservico.domain.model.Cliente;
+import com.bbm.ordemservico.domain.model.Comentario;
 import com.bbm.ordemservico.domain.model.OrdemServico;
 import com.bbm.ordemservico.domain.model.enums.StatusOrdemServico;
 import com.bbm.ordemservico.domain.repository.ClienteRepository;
+import com.bbm.ordemservico.domain.repository.ComentarioRepository;
 import com.bbm.ordemservico.domain.repository.OrdemServicoRepository;
 
 @Service
@@ -21,6 +23,9 @@ public class GestaoOrdemServicoService {
 	@Autowired
 	private ClienteRepository clienteRepository;
 	
+	@Autowired
+	private ComentarioRepository comentarioRepository;
+	
 	public OrdemServico createOrder(OrdemServico ordemServico) {
 		
 		Cliente cliente = clienteRepository.findById(ordemServico.getCliente().getId())
@@ -31,5 +36,18 @@ public class GestaoOrdemServicoService {
 		ordemServico.setDataAbertura(OffsetDateTime.now());
 		
 		return ordemServicoRepository.save(ordemServico);
+	}
+	
+	public Comentario addComentario(Long id, String descricao) {
+		
+		OrdemServico ordemServico = ordemServicoRepository.findById(id)
+				.orElseThrow(()  -> new NegocioException("Ordem de Servico não encontrada"));
+	
+		Comentario comentario = new Comentario();
+		comentario.setDataEnvio(OffsetDateTime.now());
+		comentario.setDescricao(descricao);
+		comentario.setOrdemServico(ordemServico);
+		
+		return comentarioRepository.save(comentario);
 	}
 }
