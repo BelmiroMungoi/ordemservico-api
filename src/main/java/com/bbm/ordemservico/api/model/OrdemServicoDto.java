@@ -15,7 +15,7 @@ public class OrdemServicoDto {
 	private BigDecimal preco;
 	private StatusOrdemServico status;
 	private OffsetDateTime dataAbertura;
-	private OffsetDateTime dataFinalizaca;
+	private OffsetDateTime dataFinalizacao;
 	private ClienteResumDto cliente;
 
 	public Long getId() {
@@ -82,12 +82,12 @@ public class OrdemServicoDto {
 		this.dataAbertura = dataAbertura;
 	}
 
-	public OffsetDateTime getDataFinalizaca() {
-		return dataFinalizaca;
+	public OffsetDateTime getDataFinalizacao() {
+		return dataFinalizacao;
 	}
 
-	public void setDataFinalizaca(OffsetDateTime dataFinalizaca) {
-		this.dataFinalizaca = dataFinalizaca;
+	public void setDataFinalizacao(OffsetDateTime dataFinalizacao) {
+		this.dataFinalizacao = dataFinalizacao;
 	}
 
 	public ClienteResumDto getCliente() {
