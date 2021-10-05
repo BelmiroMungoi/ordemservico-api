@@ -13,8 +13,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bbm.ordemservico.api.model.ComentarioDto;
@@ -87,6 +89,12 @@ public class OrdemServicoController {
 
 		return new ResponseEntity<List<ComentarioDto>>(toCollectionComents(
 				ordemServico.getComentarios()), HttpStatus.OK);
+	}
+	
+	@PutMapping("/{id}/finalizacao")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void finalizar(@PathVariable("id") Long id) {
+		gestaoOrdemServico.finalizarOrdemServico(id);
 	}
 
 	// transforma a entidade num representation model/dto
