@@ -17,8 +17,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bbm.ordemservico.api.model.ComentarioDto;
+import com.bbm.ordemservico.api.model.ComentarioInput;
 import com.bbm.ordemservico.api.model.OrdemServicoDto;
 import com.bbm.ordemservico.api.model.OrdemServicoInput;
+import com.bbm.ordemservico.domain.exception.EntityNotFoundException;
+import com.bbm.ordemservico.domain.model.Comentario;
 import com.bbm.ordemservico.domain.model.OrdemServico;
 import com.bbm.ordemservico.domain.repository.OrdemServicoRepository;
 import com.bbm.ordemservico.domain.service.GestaoOrdemServicoService;
@@ -32,15 +36,15 @@ public class OrdemServicoController {
 
 	@Autowired
 	private OrdemServicoRepository ordemServicoRepository;
-	
+
 	@Autowired
 	private ModelMapper modelMapper;
 
 	@PostMapping("/")
 	public ResponseEntity<OrdemServicoDto> create(@Valid @RequestBody OrdemServicoInput ordemServicoInput) {
-		
+
 		OrdemServico ordemServico = toEntity(ordemServicoInput);
-		
+
 		OrdemServico order = gestaoOrdemServico.createOrder(ordemServico);
 
 		return new ResponseEntity<OrdemServicoDto>(toModel(order), HttpStatus.CREATED);
@@ -65,19 +69,44 @@ public class OrdemServicoController {
 
 		return new ResponseEntity<String>("Ordem de Servico não encontrada", HttpStatus.NOT_FOUND);
 	}
+
+	@PostMapping("/{id}/comentario")
+	public ResponseEntity<ComentarioDto> addComentario(@PathVariable Long id,
+			@Valid @RequestBody ComentarioInput input) {
+
+		Comentario comentario = gestaoOrdemServico.addComentario(id, input.getDescricao());
+		
+		return new ResponseEntity<ComentarioDto>(toComent(comentario), HttpStatus.CREATED);
+	}
 	
-	//transforma a entidade num representation model/dto
+	@GetMapping("/{id}/comentario")
+	public ResponseEntity<List<ComentarioDto>> listarComentario(@PathVariable("id") Long id) {
+		
+		OrdemServico ordemServico = ordemServicoRepository.findById(id)
+				.orElseThrow(() -> new EntityNotFoundException("Ordem de Servico não encontrada"));
+
+		return new ResponseEntity<List<ComentarioDto>>(toCollectionComents(
+				ordemServico.getComentarios()), HttpStatus.OK);
+	}
+
+	// transforma a entidade num representation model/dto
 	private OrdemServicoDto toModel(OrdemServico ordemServico) {
 		return modelMapper.map(ordemServico, OrdemServicoDto.class);
 	}
-	
+
 	private List<OrdemServicoDto> toCollectionModel(List<OrdemServico> ordensServico) {
-		return ordensServico.stream()
-				.map(ordemServico -> toModel(ordemServico))
-				.collect(Collectors.toList());
+		return ordensServico.stream().map(ordemServico -> toModel(ordemServico)).collect(Collectors.toList());
 	}
-	
+
 	private OrdemServico toEntity(OrdemServicoInput ordemServicoInput) {
 		return modelMapper.map(ordemServicoInput, OrdemServico.class);
+	}
+
+	private ComentarioDto toComent(Comentario comentario) {
+		return modelMapper.map(comentario, ComentarioDto.class);
+	}
+	
+	private List<ComentarioDto> toCollectionComents(List<Comentario> comentarios) {
+		return comentarios.stream().map(comentario -> toComent(comentario)).collect(Collectors.toList());
 	}
 }
