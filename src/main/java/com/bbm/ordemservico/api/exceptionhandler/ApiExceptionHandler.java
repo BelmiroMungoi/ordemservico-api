@@ -19,6 +19,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import com.bbm.ordemservico.api.exceptionhandler.ErrorObject.Campo;
+import com.bbm.ordemservico.domain.exception.EntityNotFoundException;
 import com.bbm.ordemservico.domain.exception.NegocioException;
 
 @RestControllerAdvice
@@ -56,6 +57,19 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler{
 	public ResponseEntity<Object> negocioExceptionHandler(NegocioException ex, WebRequest request) {
 		
 		HttpStatus status = HttpStatus.BAD_REQUEST;
+		
+		ErrorObject errorObject = new ErrorObject();
+		errorObject.setStatus(status.value() + " ==> " + status.getReasonPhrase());
+		errorObject.setTitle(ex.getMessage());
+		errorObject.setTime(OffsetDateTime.now());
+		
+		return handleExceptionInternal(ex, errorObject, new HttpHeaders(), status, request);
+	}
+	
+	@ExceptionHandler(EntityNotFoundException.class)
+	public ResponseEntity<Object> entityNotFoundExceptionHandler(NegocioException ex, WebRequest request) {
+		
+		HttpStatus status = HttpStatus.NOT_FOUND;
 		
 		ErrorObject errorObject = new ErrorObject();
 		errorObject.setStatus(status.value() + " ==> " + status.getReasonPhrase());
