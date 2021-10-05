@@ -17,6 +17,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 
+import com.bbm.ordemservico.domain.exception.NegocioException;
 import com.bbm.ordemservico.domain.model.enums.StatusOrdemServico;
 
 @Entity
@@ -162,6 +163,19 @@ public class OrdemServico implements Serializable {
 			return false;
 		OrdemServico other = (OrdemServico) obj;
 		return Objects.equals(id, other.id);
+	}
+
+	private boolean podeFinalizar() {
+		return StatusOrdemServico.ABERTA.equals(getStatus());
+	}
+
+	public void finalizar() {
+
+		if (!podeFinalizar()) {
+			throw new NegocioException("Ordem de Servico não pode ser finalizada");
+		}
+		setStatus(StatusOrdemServico.FINALIZADA);
+		setDataFinalizacao(OffsetDateTime.now());
 	}
 
 }
