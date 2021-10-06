@@ -19,10 +19,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bbm.ordemservico.api.model.ComentarioDto;
 import com.bbm.ordemservico.api.model.ComentarioInput;
-import com.bbm.ordemservico.api.model.OrdemServicoDto;
 import com.bbm.ordemservico.api.model.OrdemServicoInput;
+import com.bbm.ordemservico.api.model.dtos.ComentarioDto;
+import com.bbm.ordemservico.api.model.dtos.OrdemServicoDto;
 import com.bbm.ordemservico.domain.exception.EntityNotFoundException;
 import com.bbm.ordemservico.domain.model.Comentario;
 import com.bbm.ordemservico.domain.model.OrdemServico;
