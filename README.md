@@ -1,2 +1,2 @@
 # ordemservico-api
- Uma api para gestao de ordem de servico
+ Uma api para gestão de ordem de servico
